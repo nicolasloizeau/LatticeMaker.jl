@@ -1,4 +1,9 @@
 using GLMakie
+# GLMakie.activate!()
+GLMakie.set_theme!(screen = (; visible=false), px_per_unit=4)
+
+# Makie.set_theme!(px_per_unit = 4)
+
 using SimpleLattices
 using Documenter
 

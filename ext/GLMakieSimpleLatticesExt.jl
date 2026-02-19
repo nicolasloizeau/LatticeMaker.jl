@@ -20,6 +20,11 @@ function SimpleLattices.plot_lattice(lattice::AbstractLattice2D)
         markersize = 15,
         color = :red
     )
+    for edge in edges(lattice)
+        p1 = pos[edge[1], :]
+        p2 = pos[edge[2], :]
+        lines!(ax, [p1[1], p2[1]], [p1[2], p2[2]], color=:blue)
+    end
     for i in 1:size(pos, 1)
         text!(
             ax,
@@ -32,11 +37,6 @@ function SimpleLattices.plot_lattice(lattice::AbstractLattice2D)
             fontsize = 14,
             color = :black
         )
-    end
-    for edge in edges(lattice)
-        p1 = pos[edge[1], :]
-        p2 = pos[edge[2], :]
-        lines!(ax, [p1[1], p2[1]], [p1[2], p2[2]], color=:blue)
     end
     return fig
 end
@@ -55,6 +55,11 @@ function SimpleLattices.plot_lattice(lattice::AbstractLattice3D)
         markersize = 15,
         color = :red
     )
+    for edge in edges(lattice)
+        p1 = pos[edge[1], :]
+        p2 = pos[edge[2], :]
+        lines!(ax, [p1[1], p2[1]], [p1[2], p2[2]], [p1[3], p2[3]], color=:blue)
+    end
     for i in 1:size(pos, 1)
         text!(
             ax,
@@ -68,11 +73,6 @@ function SimpleLattices.plot_lattice(lattice::AbstractLattice3D)
             fontsize = 14,
             color = :black
         )
-    end
-    for edge in edges(lattice)
-        p1 = pos[edge[1], :]
-        p2 = pos[edge[2], :]
-        lines!(ax, [p1[1], p2[1]], [p1[2], p2[2]], [p1[3], p2[3]], color=:blue)
     end
     return fig
 end
