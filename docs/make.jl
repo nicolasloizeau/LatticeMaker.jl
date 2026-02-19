@@ -19,6 +19,7 @@ makedocs(;
         "Home" => "index.md",
         "SquareLattice" => "square.md",
         "CubicLattice" => "cubic.md",
+        "TriangularLattice" => "triangular.md",
     ],
 )
 

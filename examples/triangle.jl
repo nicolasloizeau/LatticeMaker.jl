@@ -1,12 +1,14 @@
 
-using CairoMakie
+using GLMakie
 using SimpleLattices
 
 
-L = SquareLattice(2, 4, true, true)
-println(edges(L))
+L = TriangularLattice(5, 7, false, true)
 
 println(typeof(L)<:AbstractLattice2D)
+
+println(edges(L))
+
 
 fig = plot_lattice(L)
 display(fig)

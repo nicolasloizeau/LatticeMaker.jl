@@ -7,7 +7,7 @@ abstract type AbstractLattice3D <: AbstractLattice end
 
 include("square.jl")
 include("cubic.jl")
-
+include("triangular.jl")
 
 
 """
@@ -27,11 +27,12 @@ end
 
 
 export AbstractLattice, AbstractLattice2D, AbstractLattice3D
-export SquareLattice
-export CubicLattice
 export edges, sites, positions
 export plot_lattice
 
+export SquareLattice
+export CubicLattice
+export TriangularLattice
 
 
 end
