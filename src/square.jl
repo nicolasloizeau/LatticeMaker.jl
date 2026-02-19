@@ -27,7 +27,7 @@ function edges(lattice::SquareLattice)
             push!(edges, (pos_dict[(x, y)], pos_dict[(x+1, y)]))
         end
     end
-    for x in 0:lattice.Nx
+    for x in 0:lattice.Nx-1
         for y in 0:lattice.Ny-2
             push!(edges, (pos_dict[(x, y)], pos_dict[(x, y+1)]))
         end

@@ -1,5 +1,7 @@
+using GLMakie
 using SimpleLattices
 using Documenter
+
 
 DocMeta.setdocmeta!(SimpleLattices, :DocTestSetup, :(using SimpleLattices); recursive=true)
 
@@ -15,7 +17,7 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "SquareLattice" => "square.md",
-        "SquareLattice3D" => "cubic.md",
+        "CubicLattice" => "cubic.md",
     ],
 )
 
