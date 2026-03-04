@@ -42,7 +42,7 @@ export CubicLattice
 export TriangularLattice
 export HexagonalLattice
 
-export SQUARE_CELL, CUBIC_CELL, TRIANGULAR_CELL, HEXAGONAL_CELL
+export SQUARE_CELL, CUBIC_CELL, TRIANGULAR_CELL, HEXAGONAL_CELL, KAGOME_CELL
 export Lattice, UnitCell
 export site_indexes, site_index
 end

@@ -41,13 +41,14 @@ function SimpleLattices.plot_lattice(lattice::Lattice; edges::Function=edges)
         lines!(ax, line_coords...; color = :blue)
     end
 
+    indexes = site_indexes(lattice)
     for i in 1:size(pos, 1)
         position = dims == 2 ?
             (pos[i, 1], pos[i, 2]) :
             (pos[i, 1], pos[i, 2], pos[i, 3])
         text!(
             ax,
-            string(i);
+            string(indexes[i]);
             position = position,
             align = (:center, :bottom),
             fontsize = 20,

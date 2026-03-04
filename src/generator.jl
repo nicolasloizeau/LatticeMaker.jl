@@ -13,59 +13,86 @@ function positions(lattice::Lattice{2})
     return site_positions
 end
 
-function positions(lattice::Lattice{3})
-    cell = lattice.cell
-    size = lattice.size
-    periodicity = lattice.periodicity
-    site_positions = []
-    for i in 0:size[1]-1, j in 0:size[2]-1, k in 0:size[3]-1
-        for site in cell.sites
-            pos = site .+ i.*cell.vectors[1] .+ j.*cell.vectors[2] .+ k.*cell.vectors[3]
-            push!(site_positions, pos)
-        end
-    end
-    return site_positions
-end
+# function positions(lattice::Lattice{3})
+#     cell = lattice.cell
+#     size = lattice.size
+#     periodicity = lattice.periodicity
+#     site_positions = []
+#     for i in 0:size[1]-1, j in 0:size[2]-1, k in 0:size[3]-1
+#         for site in cell.sites
+#             pos = site .+ i.*cell.vectors[1] .+ j.*cell.vectors[2] .+ k.*cell.vectors[3]
+#             push!(site_positions, pos)
+#         end
+#     end
+#     return site_positions
+# end
 
-
-
-
+# function positions(lattice::Lattice{N}) where {N}
+#     cell  = lattice.cell
+#     sizes = lattice.size
+#     site_positions = typeof(cell.sites[1])[]
+#     ranges = ntuple(d -> 0:sizes[d]-1, N)
+#     M = length(cell.sites[1])
+#     # Reverse to match nested-loop ordering
+#     for coord_rev in Iterators.product(reverse(ranges)...)
+#         coord = reverse(coord_rev)
+#         for site in cell.sites
+#             pos = ntuple(i -> begin
+#                 acc = site[i]
+#                 for d in 1:N
+#                     acc += coord[d] * cell.vectors[d][i]
+#                 end
+#                 acc
+#             end, M)
+#             push!(site_positions, pos)
+#         end
+#     end
+#     return site_positions
+# end
 
 
 function site_index(lattice::Lattice{2}, i::Int, j::Int, k::Int)
     size = lattice.size
-    return k + k*j + k*size[2]*i
+    return (i*size[2]+j)*length(lattice.cell.sites) + k
 end
 
 function site_index(lattice::Lattice{3}, i::Int, j::Int, k::Int, l::Int)
     size = lattice.size
-    return l + l*k + l*j*size[3] + l*i*size[2]*size[3]
+    return ((i*size[2]+j)*size[3]+k)*length(lattice.cell.sites) + l
 end
 
 
+function site_indexes(lattice::Lattice{N}) where {N}
+    sizes = lattice.size
+    indexes = Vector{Int}()  # or correct index type
 
-function site_indexes(lattice::Lattice{2})
-    size = lattice.size
-    indexes = []
-    for i in 0:size[1]-1, j in 0:size[2]-1
-        for k in 1:length(lattice.cell.sites)
-            push!(indexes, site_index(lattice, i, j, k))
+    ranges = ntuple(d -> 0:sizes[d]-1, N)
+
+    # Reverse to match nested-loop ordering
+    for coord_rev in Iterators.product(reverse(ranges)...)
+        coord = reverse(coord_rev)
+
+        for s in 1:length(lattice.cell.sites)
+            push!(indexes, site_index(lattice, coord..., s))
         end
     end
+
     return indexes
 end
 
+# function site_indexes(lattice::Lattice{2})
+#     size = lattice.size
+#     indexes = []
+#     for i in 0:size[1]-1, j in 0:size[2]-1
+#         for k in 1:length(lattice.cell.sites)
+#             push!(indexes, site_index(lattice, i, j, k))
+#         end
+#     end
+#     return indexes
+# end
 
-function site_indexes(lattice::Lattice{3})
-    size = lattice.size
-    indexes = []
-    for i in 0:size[1]-1, j in 0:size[2]-1, k in 0:size[3]-1
-        for l in 1:length(lattice.cell.sites)
-            push!(indexes, site_index(lattice, i, j, k, l))
-        end
-    end
-    return indexes
-end
+
+
 
 function edges(lattice::Lattice{2})
     cell = lattice.cell
@@ -79,6 +106,22 @@ function edges(lattice::Lattice{2})
             index1 = site_index(lattice, i, j, site1)
             index2 = site_index(lattice, i2, j2, site2)
             if (0 <= i2 < size[1]) && (0 <= j2 < size[2])
+                push!(edge_list, (index1, index2))
+            elseif periodicity[1] && (0 <= j2 < size[2])
+                i2 = mod(i2, size[1])
+                index1 = site_index(lattice, i, j, site1)
+                index2 = site_index(lattice, i2, j2, site2)
+                push!(edge_list, (index1, index2))
+            elseif periodicity[2] && (0 <= i2 < size[1])
+                j2 = mod(j2, size[2])
+                index1 = site_index(lattice, i, j, site1)
+                index2 = site_index(lattice, i2, j2, site2)
+                push!(edge_list, (index1, index2))
+            elseif periodicity[1] && periodicity[2]
+                i2 = mod(i2, size[1])
+                j2 = mod(j2, size[2])
+                index1 = site_index(lattice, i, j, site1)
+                index2 = site_index(lattice, i2, j2, site2)
                 push!(edge_list, (index1, index2))
             end
         end
