@@ -1,10 +1,13 @@
-
-using GLMakie
+using CairoMakie
 using SimpleLattices
 
 
-lattice = TriangularLattice(5, 4, true, true)
-fig = plot_lattice(lattice;edges=periodic_boundary_edges)
+lattice = Lattice(HEXAGONAL_CELL, (6,5), (true, true))
+
+println(positions(lattice))
+println(site_indexes(lattice))
+fig = plot_lattice(lattice)
 println(edges(lattice))
+println(length(edges(lattice)))
 
 save("lattice.png", fig)

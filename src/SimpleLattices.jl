@@ -5,10 +5,9 @@ abstract type AbstractLattice2D <: AbstractLattice end
 abstract type AbstractLattice3D <: AbstractLattice end
 
 
-include("square.jl")
-include("cubic.jl")
-include("triangular.jl")
-include("hexagonal.jl")
+include("lattices.jl")
+include("generator.jl")
+
 
 """
     plot_lattice(lattice::AbstractLattice)
@@ -43,5 +42,7 @@ export CubicLattice
 export TriangularLattice
 export HexagonalLattice
 
-
+export SQUARE_CELL, CUBIC_CELL, TRIANGULAR_CELL, HEXAGONAL_CELL
+export Lattice, UnitCell
+export site_indexes, site_index
 end

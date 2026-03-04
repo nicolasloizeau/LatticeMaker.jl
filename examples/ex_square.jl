@@ -3,15 +3,12 @@ using CairoMakie
 using SimpleLattices
 
 
-Nx = 5
-Ny = 4
-lattice = SquareLattice(Nx, Ny, true, true)
-println(edges(lattice))
+lattice = Lattice(SQUARE_CELL, (6,5), (true, true))
+
+println(positions(lattice))
+println(site_indexes(lattice))
 fig = plot_lattice(lattice)
+println(edges(lattice))
+println(length(edges(lattice)))
 
 save("lattice.png", fig)
-# println(typeof(L)<:AbstractLattice2D)
-
-# fig = plot_lattice(L)
-# display(fig)
-# sleep(10^9)

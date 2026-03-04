@@ -2,7 +2,7 @@
 
 
 
-function SimpleLattices.plot_positions(lattice::AbstractLattice)
+function SimpleLattices.plot_positions(lattice::Lattice)
     fig = Figure()
     pos = positions(lattice)
     pos = collect.(pos) |> vcat
@@ -19,7 +19,7 @@ function SimpleLattices.plot_positions(lattice::AbstractLattice)
     return fig
 end
 
-function SimpleLattices.plot_lattice(lattice::Union{AbstractLattice2D, AbstractLattice3D}; edges::Function=edges)
+function SimpleLattices.plot_lattice(lattice::Lattice; edges::Function=edges)
     fig = Figure()
     pos = positions(lattice)
     pos = collect.(pos) |> vcat
