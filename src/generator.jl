@@ -47,6 +47,9 @@ function site_indexes(lattice::Lattice{N}) where {N}
     return indexes
 end
 
+function sites(lattice::Lattice{N}) where {N}
+    return site_indexes(lattice)
+end
 
 function edges(lattice::Lattice{2})
     cell = lattice.cell

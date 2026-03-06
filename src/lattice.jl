@@ -10,3 +10,7 @@ struct Lattice{D}
     size::NTuple{D, Int}
     periodicity::NTuple{D, Bool}
 end
+
+
+Base.size(lattice::Lattice) = lattice.size
+Base.length(lattice::Lattice) = length(lattice.cell.sites) * prod(lattice.size)

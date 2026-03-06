@@ -29,7 +29,6 @@ export Lattice, UnitCell
 export edges, sites, positions
 export plot_lattice
 export plot_positions
-export site_indexes, site_index
 export SQUARE_CELL, CUBIC_CELL, TRIANGULAR_CELL, HEXAGONAL_CELL, KAGOME_CELL
 export SquareLattice, CubicLattice, TriangularLattice, HexagonalLattice, KagomeLattice
 
