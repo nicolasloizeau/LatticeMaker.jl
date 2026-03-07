@@ -40,43 +40,39 @@ function site_index(lattice::Lattice{3}, i::Int, j::Int, k::Int, l::Int)
     return ((i*size[2]+j)*size[3]+k)*length(lattice.cell.sites) + l
 end
 
+"""
+    sites(lattice::Lattice{N}) where {N}
 
-function site_indexes(lattice::Lattice{N}) where {N}
+Return a list of sites indexes.
+"""
+function sites(lattice::Lattice{N}; site_indexes=1:length(lattice.cell.sites)) where {N}
     sizes = lattice.size
     indexes = Vector{Int}()
     ranges = ntuple(d -> 0:sizes[d]-1, N)
     # Reverse to match nested-loop ordering
     for coord_rev in Iterators.product(reverse(ranges)...)
         coord = reverse(coord_rev)
-        for s in 1:length(lattice.cell.sites)
+        for s in site_indexes
             push!(indexes, site_index(lattice, coord..., s))
         end
     end
     return indexes
 end
 
-"""
-    sites(lattice::Lattice{N}) where {N}
-
-Return a list of sites indexes.
-"""
-function sites(lattice::Lattice{N}) where {N}
-    return site_indexes(lattice)
-end
-
 
 """
-    edges(lattice::Lattice{N}) where {N}
+    edges(lattice::Lattice{N}; edge_indexes=1:length(lattice.cell.edges)) where {N}
 
 Returns a list of edges in the lattice, where each edge is represented as a couple of site indexes.
+
 """
-function edges(lattice::Lattice{2})
+function edges(lattice::Lattice{2}; edge_indexes=1:length(lattice.cell.edges))
     cell = lattice.cell
     size = lattice.size
     periodicity = lattice.periodicity
     edge_list = []
     for i in 0:size[1]-1, j in 0:size[2]-1
-        for (site1, (di, dj), site2) in cell.edges
+        for (site1, (di, dj), site2) in cell.edges[edge_indexes]
             i2 = i + di
             j2 = j + dj
             index1 = site_index(lattice, i, j, site1)
@@ -105,13 +101,13 @@ function edges(lattice::Lattice{2})
     return remove_bidirectional(edge_list)
 end
 
-function edges(lattice::Lattice{3})
+function edges(lattice::Lattice{3}; edge_indexes=1:length(lattice.cell.edges))
     cell = lattice.cell
     size = lattice.size
     periodicity = lattice.periodicity
     edge_list = []
     for i in 0:size[1]-1, j in 0:size[2]-1, k in 0:size[3]-1
-        for (site1, (di, dj, dk), site2) in cell.edges
+        for (site1, (di, dj, dk), site2) in cell.edges[edge_indexes]
             i2 = i + di
             j2 = j + dj
             k2 = k + dk

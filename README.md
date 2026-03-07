@@ -40,4 +40,4 @@ display(fig)
 
 
 
-![hex lattice](lattice.png)
+![hex lattice](example.png)

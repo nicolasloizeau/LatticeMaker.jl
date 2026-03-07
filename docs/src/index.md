@@ -25,13 +25,19 @@ Standard lattices constructors are provided : [`SquareLattice`](https://nicolasl
 
 Example: Construct a hexagonal lattice with 3*4 cells and periodic boundary conditions along the x-axis, and plot it:
 
-```@example
+```@example ex1
 using CairoMakie # for plotting
 using SimpleLattices
 lattice = HexagonalLattice(4,5; periodic=(true, false))
-println(positions(lattice))
-println(edges(lattice))
 plot_lattice(lattice)
+```
+
+```@example ex1
+positions(lattice)
+```
+
+```@example ex1
+edges(lattice)
 ```
 
 ```@index

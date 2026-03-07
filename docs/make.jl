@@ -23,6 +23,7 @@ makedocs(;
         "HexagonalLattice" => "hexagonal.md",
         "KagomeLattice" => "kagome.md",
         "Custom lattices" => "custom.md",
+        "Advanced" => "advanced.md",
     ],
 )
 
