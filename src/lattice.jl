@@ -22,7 +22,6 @@ function Lattice(cell::UnitCell{D}, size::NTuple{D, Int}; periodic=NTuple{D, Boo
     @assert length(size) == D "Size must have the same dimension as the unit cell"
     @assert length(periodic) == D "Periodicity must have the same dimension as the unit cell"
     @assert D==2 || D==3 "Only 2D and 3D lattices are supported"
-    @assert D==2 || periodic == (false, false, false) "periodic boundaries are not supported for 3D lattices yet"
     return Lattice{D}(cell, size, periodic)
 end
 

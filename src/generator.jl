@@ -60,60 +60,43 @@ function sites(lattice::Lattice{N}; site_indexes=1:length(lattice.cell.sites)) w
 end
 
 
+@inline function wrap_index(x::Int, L::Int, periodic::Bool)
+    if 0 <= x < L
+        return x, true
+    elseif periodic
+        return mod(x, L), true
+    else
+        return x, false
+    end
+end
+
+
+
 """
     edges(lattice::Lattice{N}; edge_indexes=1:length(lattice.cell.edges)) where {N}
 
 Returns a list of edges in the lattice, where each edge is represented as a couple of site indexes.
 
 """
-function edges(lattice::Lattice{2}; edge_indexes=1:length(lattice.cell.edges))
+function edges(lattice::Lattice{N}; edge_indexes=1:length(lattice.cell.edges)) where N
     cell = lattice.cell
     size = lattice.size
     periodicity = lattice.periodicity
-    edge_list = []
-    for i in 0:size[1]-1, j in 0:size[2]-1
-        for (site1, (di, dj), site2) in cell.edges[edge_indexes]
-            i2 = i + di
-            j2 = j + dj
-            index1 = site_index(lattice, i, j, site1)
-            index2 = site_index(lattice, i2, j2, site2)
-            if (0 <= i2 < size[1]) && (0 <= j2 < size[2])
-                push!(edge_list, (index1, index2))
-            elseif periodicity[1] && (0 <= j2 < size[2])
-                i2 = mod(i2, size[1])
-                index1 = site_index(lattice, i, j, site1)
-                index2 = site_index(lattice, i2, j2, site2)
-                push!(edge_list, (index1, index2))
-            elseif periodicity[2] && (0 <= i2 < size[1])
-                j2 = mod(j2, size[2])
-                index1 = site_index(lattice, i, j, site1)
-                index2 = site_index(lattice, i2, j2, site2)
-                push!(edge_list, (index1, index2))
-            elseif periodicity[1] && periodicity[2]
-                i2 = mod(i2, size[1])
-                j2 = mod(j2, size[2])
-                index1 = site_index(lattice, i, j, site1)
-                index2 = site_index(lattice, i2, j2, site2)
-                push!(edge_list, (index1, index2))
+    edge_list = Tuple{Int,Int}[]
+    ranges = ntuple(d -> 0:size[d]-1, N)
+    for coord in CartesianIndices(ranges)
+        base = Tuple(coord)
+        for (site1, disp, site2) in cell.edges[edge_indexes]
+            valid = true
+            newcoord = ntuple(N) do d
+                x, ok = wrap_index(base[d] + disp[d], size[d], periodicity[d])
+                valid &= ok
+                x
             end
-        end
-    end
-    return remove_bidirectional(edge_list)
-end
+            if valid
+                index1 = site_index(lattice, base..., site1)
+                index2 = site_index(lattice, newcoord..., site2)
 
-function edges(lattice::Lattice{3}; edge_indexes=1:length(lattice.cell.edges))
-    cell = lattice.cell
-    size = lattice.size
-    periodicity = lattice.periodicity
-    edge_list = []
-    for i in 0:size[1]-1, j in 0:size[2]-1, k in 0:size[3]-1
-        for (site1, (di, dj, dk), site2) in cell.edges[edge_indexes]
-            i2 = i + di
-            j2 = j + dj
-            k2 = k + dk
-            index1 = site_index(lattice, i, j, k, site1)
-            index2 = site_index(lattice, i2, j2, k2, site2)
-            if (0 <= i2 < size[1]) && (0 <= j2 < size[2]) && (0 <= k2 < size[3])
                 push!(edge_list, (index1, index2))
             end
         end
