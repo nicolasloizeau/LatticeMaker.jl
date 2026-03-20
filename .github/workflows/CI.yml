@@ -65,6 +65,6 @@ jobs:
         shell: julia --project=docs --color=yes {0}
         run: |
           using Documenter: DocMeta, doctest
-          using SimpleLattices
-          DocMeta.setdocmeta!(SimpleLattices, :DocTestSetup, :(using SimpleLattices); recursive=true)
-          doctest(SimpleLattices)
+          using LatticeMaker
+          DocMeta.setdocmeta!(LatticeMaker, :DocTestSetup, :(using LatticeMaker); recursive=true)
+          doctest(LatticeMaker)
