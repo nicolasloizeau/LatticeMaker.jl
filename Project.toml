@@ -1,4 +1,4 @@
-name = "SimpleLattices"
+name = "LatticeMaker"
 uuid = "ce2437d6-9709-47f6-b5a7-5bf524fd8b96"
 authors = ["Nicolas Loizeau"]
 version = "0.0.1"
