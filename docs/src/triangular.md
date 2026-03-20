@@ -4,7 +4,7 @@
 Build a triangular lattice with periodic boundary conditions in the x direction and open boundary conditions in the y direction:
 ```@example ex1
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 L = TriangularLattice(7, 5; periodic=(true, false))
 ```
 

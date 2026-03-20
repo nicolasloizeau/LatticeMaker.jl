@@ -9,7 +9,7 @@
 
 ```@example ex1
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 L = CubicLattice(2, 3, 4)
 ```
 

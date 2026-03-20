@@ -1,4 +1,4 @@
-using SimpleLattices
+using LatticeMaker
 using Test
 
 include("test_cubic.jl")

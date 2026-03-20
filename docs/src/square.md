@@ -4,7 +4,7 @@
 Build a square lattice with periodic boundary conditions in both directions:
 ```@example ex1
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 L = SquareLattice(7, 5; periodic = (true, true))
 ```
 

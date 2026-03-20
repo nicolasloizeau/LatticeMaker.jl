@@ -4,7 +4,7 @@
 Build a hexagonal lattice with periodic boundary conditions :
 ```@example ex1
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 L = HexagonalLattice(3, 4; periodic=(true, true))
 ```
 

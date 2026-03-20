@@ -1,5 +1,5 @@
 
-using SimpleLattices
+using LatticeMaker
 using Test
 include("basic_tests.jl")
 

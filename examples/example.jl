@@ -1,5 +1,5 @@
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 
 
 lattice = HexagonalLattice(4,5; periodic=(true, false))

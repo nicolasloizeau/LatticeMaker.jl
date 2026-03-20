@@ -4,7 +4,7 @@
 Build a Kagome lattice with open boundary conditions :
 ```@example ex1
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 L = KagomeLattice(4, 5; periodic=(false, false))
 ```
 

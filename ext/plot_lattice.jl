@@ -2,7 +2,7 @@
 
 
 
-function SimpleLattices.plot_positions(lattice::Lattice)
+function LatticeMaker.plot_positions(lattice::Lattice)
     fig = Figure()
     pos = positions(lattice)
     pos = collect.(pos) |> vcat
@@ -20,7 +20,7 @@ function SimpleLattices.plot_positions(lattice::Lattice)
 end
 
 
-function SimpleLattices.plot_lattice(lattice::Lattice)
+function LatticeMaker.plot_lattice(lattice::Lattice)
     site_list = sites(lattice)
     position_list = positions(lattice)
     edge_list = edges(lattice)
@@ -28,7 +28,7 @@ function SimpleLattices.plot_lattice(lattice::Lattice)
 end
 
 
-function SimpleLattices.plot_lattice(site_list::Vector, position_list::Vector, edge_list::Vector; node_color=:red, edge_color=:blue)
+function LatticeMaker.plot_lattice(site_list::Vector, position_list::Vector, edge_list::Vector; node_color=:red, edge_color=:blue)
     fig = Figure()
     position_list = collect.(position_list) |> vcat
     position_list = reduce(vcat, transpose.(position_list))

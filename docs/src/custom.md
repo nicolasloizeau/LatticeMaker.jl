@@ -38,7 +38,7 @@ const HEXAGONAL_CELL = UnitCell(
 Lets define a custom lattice: a square lattice with an extra site in the middle of the unit cell, connected to one corner of the unit cell.
 ```@example ex1
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 const CUSTOM_CELL = UnitCell(
     ((1.0,0.0), (0.0,1.0)),
     [(0.0,0.0)

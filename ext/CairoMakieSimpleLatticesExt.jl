@@ -1,6 +1,6 @@
-module CairoMakieSimpleLatticesExt
+module CairoMakieLatticeMakerExt
 using CairoMakie
-using SimpleLattices
+using LatticeMaker
 export plot_lattice, plot_positions
 include("plot_lattice.jl")
 end
