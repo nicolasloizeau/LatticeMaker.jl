@@ -1,17 +1,17 @@
 using CairoMakie
 CairoMakie.set_theme!(screen = (; visible=false), px_per_unit=4)
-using SimpleLattices
+using LatticeMaker
 using Documenter
 
 
-DocMeta.setdocmeta!(SimpleLattices, :DocTestSetup, :(using SimpleLattices); recursive=true)
+DocMeta.setdocmeta!(LatticeMaker, :DocTestSetup, :(using LatticeMaker); recursive=true)
 
 makedocs(;
-    modules=[SimpleLattices],
+    modules=[LatticeMaker],
     authors="Nicolas Loizeau",
-    sitename="SimpleLattices.jl",
+    sitename="LatticeMaker.jl",
     format=Documenter.HTML(;
-        canonical="https://nicolasloizeau.github.io/SimpleLattices.jl",
+        canonical="https://nicolasloizeau.github.io/LatticeMaker.jl",
         edit_link="main",
         assets=String[],
     ),
@@ -28,6 +28,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/nicolasloizeau/SimpleLattices.jl",
+    repo="github.com/nicolasloizeau/LatticeMaker.jl",
     devbranch="main",
 )
