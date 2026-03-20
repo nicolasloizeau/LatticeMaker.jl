@@ -1,4 +1,4 @@
-module SimpleLattices
+module LatticeMaker
 
 
 include("lattice.jl")
