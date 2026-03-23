@@ -8,7 +8,11 @@
 This is a package for constructing lattices in Julia.
 
 ## Installation
-
+```julia
+using Pkg
+Pkg.add("LatticeMaker")
+```
+or for the dev version :
 ```julia
 using Pkg
 Pkg.add(url="https://github.com/nicolasloizeau/LatticeMaker.jl")
